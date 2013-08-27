@@ -172,7 +172,7 @@ module Duckrowing
         doc_id = id.split(/\s/).last
         doc_id.gsub!(/\*/, '')
         commented_list += "#{base_indent}" if id != ids.first
-        commented_list += "#{@indent}#{list_id} /**&lt; &lt;##{doc_id} description#&gt; */"
+        commented_list += "#{@indent}#{list_id} /** &lt;##{doc_id} description#&gt; */"
         commented_list += "\n" if id != ids.last
       end
       commented_list
