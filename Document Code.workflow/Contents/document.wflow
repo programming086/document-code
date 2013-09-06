@@ -60,9 +60,6 @@
 #
 # This script helps us make doxygen comments in obj-c files in Xcode
 #
-# Created by Fred McCann on 03/16/2010.
-# http://www.duckrowing.com
-#
 
 module Duckrowing
 
@@ -276,7 +273,6 @@ module Duckrowing
         arg.name = a.split(/\s/).last
 
         parts = a.split(/\s+/)
-#        arg.name = parts.last
         parts.delete_at(parts.size - 1)
         arg.type = parts.join(" ")
         @arguments &lt;&lt; arg
@@ -425,6 +421,8 @@ module Duckrowing
         klass = PropertyCommenter
       elsif is_objc_enum?(code)
         klass = NSEnumCommenter
+      elsif is_objc_options?(code)
+        klass = NSEnumCommenter
       elsif is_objc_method?(code)
         klass = MethodCommenter
       elsif is_function?(code)
@@ -457,6 +455,10 @@ module Duckrowing
 
     def is_objc_enum?(code)
       code.gsub(/\n/, ' ') =~ /^\s*(\w+\s)?\s*\NS_ENUM.*\(.*\).*\{.*\}/
+    end
+
+    def is_objc_options?(code)
+      code.gsub(/\n/, ' ') =~ /^\s*(\w+\s)?\s*\NS_OPTIONS.*\(.*\).*\{.*\}/
     end
 
     def is_function?(code)
