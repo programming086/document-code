@@ -434,7 +434,7 @@ module Duckrowing
       elsif is_union?(code)
         klass = StructCommenter
       elsif is_enum?(code)
-        klass = EnumCommenter
+        klass = NSEnumCommenter
       else
         klass = VariableCommenter
       end
