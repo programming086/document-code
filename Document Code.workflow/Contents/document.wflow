@@ -123,27 +123,27 @@ module Duckrowing
 
     # Creates an opening comment
     def start_comment(description = 'Description')
-      str = "#{@indent}/*!\n"
-      str += " #{@indent}@abstract &lt;##{description}#&gt;\n"
+      str = "/*!\n"
+      str += " @abstract &lt;##{description}#&gt;\n"
       str
     end
 
     def arguments_comment
       str = ''
       @arguments.each do |arg|
-        str += " #{@indent}@param #{arg.name} &lt;##{arg.name} description#&gt;\n"
+        str += " @param #{arg.name} &lt;##{arg.name} description#&gt;\n"
       end
       str
     end
 
     def return_comment
       return '' if !@returns
-      " #{@indent}@return &lt;#return value description#&gt;\n"
+      " @return &lt;#return value description#&gt;\n"
     end
 
     # Creates closing comment
     def end_comment()
-      "#{@indent} */\n"
+      " */\n"
     end
 
     # Convenience method to detect multiline statements
@@ -169,7 +169,7 @@ module Duckrowing
         doc_id = id.split(/\s/).last
         doc_id.gsub!(/\*/, '')
         commented_list += "#{base_indent}" if id != ids.first
-        commented_list += "#{@indent}#{list_id} /** &lt;##{doc_id} description#&gt; */"
+        commented_list += "#{list_id} /** &lt;##{doc_id} description#&gt; */"
         commented_list += "\n" if id != ids.last
       end
       commented_list
@@ -283,7 +283,7 @@ module Duckrowing
     def arguments_comment
       str = ''
       @arguments.each do |arg|
-        str += "#{@indent} @constant #{arg.name} &lt;##{arg.name} description#&gt;\n"
+        str += " @constant #{arg.name} &lt;##{arg.name} description#&gt;\n"
       end
       str
     end
@@ -307,7 +307,7 @@ module Duckrowing
       return if matches.size != 1
 
       block = matches[0].to_s
-      @code.gsub!(block_match, "{\n#{comment_list(block)}\n#{@indent}}")
+      @code.gsub!(block_match, "{\n#{comment_list(block)}\n}")
     end
 
     # Comments the enum. This will write comments next to each name for a multiline
@@ -341,7 +341,7 @@ module Duckrowing
       return if matches.size != 1
 
       block = matches[0].to_s
-      @code.gsub!(block_match, "{\n#{comment_struct_list(block)}#{@indent}}")
+      @code.gsub!(block_match, "{\n#{comment_struct_list(block)}}")
     end
 
     # Adds inline comments for members and a comment for the entire struct
