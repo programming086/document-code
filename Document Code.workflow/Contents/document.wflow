@@ -252,6 +252,9 @@ module Duckrowing
     # Parse out args for inclusion in comment
     def capture_args
       matches = @code.scan(/\{([^\{\}]*)\}/)
+#warning!!!!!!!!
+	matches = matches[0]
+
       parse_NSEnum_style_argument_list(matches[0].to_s)
 	
     end
@@ -305,8 +308,9 @@ module Duckrowing
       block_match = /\{([^\{\}]*)\}/
       matches = @code.scan(block_match)
       return if matches.size != 1
+      return if matches[0].size != 1
 
-      block = matches[0].to_s
+      block = matches[0][0].to_s
       @code.gsub!(block_match, "{\n#{comment_list(block)}\n}")
     end
 
@@ -339,8 +343,9 @@ module Duckrowing
       block_match = /\{([^\{\}]*)\}/
       matches = @code.scan(block_match)
       return if matches.size != 1
+      return if matches[0].size != 1
 
-      block = matches[0].to_s
+      block = matches[0][0].to_s
       @code.gsub!(block_match, "{\n#{comment_struct_list(block)}}")
     end
 
@@ -360,6 +365,11 @@ module Duckrowing
 
     # Decides whether or not to add a returns tag to comment
     def capture_return
+
+#warning
+#	val = @code.split(/\(/).first;
+#	puts ">>> val: #{val}"
+
       @returns = @code.split(/\(/).first !~ /void/
     end
 
@@ -378,8 +388,13 @@ module Duckrowing
     # Find the return type
     def capture_return_type
       matches = @code.scan(/^\s*[+-]\s*\(([^\(\)]*)\)/)
+
+#warning!!!!!!!!!!!!!
+	#puts " >> matches: #{matches}\n #{matches[0]}\n#{matches[0][0]}\n"
+
       return nil if matches.size != 1
-      type = matches[0].to_s.gsub(TAILMATCH, '')
+      return nil if matches[0].size != 1
+      type = matches[0][0].to_s.gsub(TAILMATCH, '')
 
       if type == 'void' || type == 'IBAction'
         @returns = nil
@@ -392,6 +407,10 @@ module Duckrowing
     def capture_parameters
       params = []
       matches = @code.scan(/\:\(([^\(]+)\)(\S+)/)
+
+#warning!!!!!!!!!!!!!!!!!!!!!!!!!!
+#puts " >> matches: #{matches}\n "
+
       matches.each do |m|
         next if m.size != 2
         arg = Argument.new
@@ -483,8 +502,10 @@ module Duckrowing
 
     def base_indentation(code)
       matches = code.scan(/^(\s*)/)
+
       return '' if matches.size == 0
-      matches[0].to_s
+      return '' if matches[0].size == 0
+      matches[0][0].to_s
     end
   end
 end
