@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>247.1</string>
+	<string>419</string>
 	<key>AMApplicationVersion</key>
-	<string>2.1.1</string>
+	<string>2.6</string>
 	<key>AMDocumentVersion</key>
 	<string>2</string>
 	<key>actions</key>
@@ -25,7 +25,11 @@
 					</array>
 				</dict>
 				<key>AMActionVersion</key>
-				<string>2.0.1</string>
+				<string>2.0.3</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
 				<key>AMParameterProperties</key>
 				<dict>
 					<key>COMMAND_STRING</key>
@@ -51,7 +55,7 @@
 				<key>ActionBundlePath</key>
 				<string>/System/Library/Automator/Run Shell Script.action</string>
 				<key>ActionName</key>
-				<string>Run Shell Script</string>
+				<string>Запустить shell-скрипт</string>
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
@@ -59,6 +63,7 @@
 
 #
 # This script helps us make doxygen comments in obj-c files in Xcode
+# Created by Brovko Roman
 #
 
 module Duckrowing
@@ -123,8 +128,8 @@ module Duckrowing
 
     # Creates an opening comment
     def start_comment(description = 'Description')
-      str = "/*!\n"
-      str += " @abstract &lt;##{description}#&gt;\n"
+      str = "/**\n"
+      str += " &lt;##{description}#&gt;\n"
       str
     end
 
@@ -368,7 +373,7 @@ module Duckrowing
 
 #warning
 #	val = @code.split(/\(/).first;
-#	puts ">>> val: #{val}"
+#	puts "&gt;&gt;&gt; val: #{val}"
 
       @returns = @code.split(/\(/).first !~ /void/
     end
@@ -390,7 +395,7 @@ module Duckrowing
       matches = @code.scan(/^\s*[+-]\s*\(([^\(\)]*)\)/)
 
 #warning!!!!!!!!!!!!!
-	#puts " >> matches: #{matches}\n #{matches[0]}\n#{matches[0][0]}\n"
+	#puts " &gt;&gt; matches: #{matches}\n #{matches[0]}\n#{matches[0][0]}\n"
 
       return nil if matches.size != 1
       return nil if matches[0].size != 1
@@ -409,7 +414,7 @@ module Duckrowing
       matches = @code.scan(/\:\(([^\(]+)\)(\S+)/)
 
 #warning!!!!!!!!!!!!!!!!!!!!!!!!!!
-#puts " >> matches: #{matches}\n "
+#puts " &gt;&gt; matches: #{matches}\n "
 
       matches.each do |m|
         next if m.size != 2
@@ -524,14 +529,10 @@ puts "#{replacement}\n"
 					<key>source</key>
 					<string></string>
 				</dict>
-				<key>Application</key>
-				<array>
-					<string>Automator</string>
-				</array>
 				<key>BundleIdentifier</key>
 				<string>com.apple.RunShellScript</string>
 				<key>CFBundleVersion</key>
-				<string>2.0.1</string>
+				<string>2.0.3</string>
 				<key>CanShowSelectedItemsWhenRun</key>
 				<false/>
 				<key>CanShowWhenRun</key>
@@ -547,9 +548,9 @@ puts "#{replacement}\n"
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
-					<string>Script</string>
-					<string>Command</string>
-					<string>Run</string>
+					<string>Скрипт</string>
+					<string>Команда</string>
+					<string>Запустить</string>
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
@@ -631,9 +632,9 @@ puts "#{replacement}\n"
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>306.000000:544.000000</string>
+				<string>761.500000:807.000000</string>
 				<key>nibPath</key>
-				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/English.lproj/main.nib</string>
+				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/ru.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
 			<true/>
@@ -723,6 +724,8 @@ puts "#{replacement}\n"
 		<string>com.apple.Automator.text</string>
 		<key>serviceOutputTypeIdentifier</key>
 		<string>com.apple.Automator.text</string>
+		<key>serviceProcessesInput</key>
+		<integer>0</integer>
 		<key>workflowTypeIdentifier</key>
 		<string>com.apple.Automator.servicesMenu</string>
 	</dict>
